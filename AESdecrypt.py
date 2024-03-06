@@ -1,15 +1,15 @@
-from AESdecryptfunc import * #import AESdecryptfunc module to use functions created for this program
-import math #import math module to use function such as ceiling
+from AESdecryptfunc import * 
+import math 
 import io
 
-#check that script is running with the two text files as the two parameters or else quit
-if len(sys.argv) is not 3:#takes in two arguments for the ciphertext.txt file name and plainhex.txt file name
+
+if len(sys.argv) is not 3:
     sys.exit("Error, script needs two command-line arguments. (Ciphertext.txt File and plainhex.txt File)")
 PassPhrase=""
 
 while(len(PassPhrase)!=16):
     print("Enter in the 16 character passphrase to decrypt your text file %s" %sys.argv[1])
-    PassPhrase=input()#takes in user input of char, eg. "Iwanttolearnkung"
+    PassPhrase=input()
     if(len(PassPhrase)<16):#check if less than 16 characters, if so add one space character until 16 chars
         while(len(PassPhrase)!=16):
             PassPhrase=PassPhrase+"\00"
@@ -23,14 +23,14 @@ message=(file.read())
 print("Inside your ciphertext message is:\n%s\n" % message)
 file.close()
 
-#set up some parameters
-start=0#set starting pointer for the part to decrypt of the ciphertext
-end=32#set ending pointer for the part to decrypt of the plaintex
-length=len(message)#check the entire size of the message
-loopmsg=0.00#create a decimal value
-loopmsg=math.ceil(length/32)+1#use formula to figure how long the message is and how many 16 character segmentss must be decrypted
-outputhex=""#setup output message segment in hex
-asciioutput=""#setup compilation of output message in ascii
+
+start=0
+end=32
+length=len(message)
+loopmsg=0.00
+loopmsg=math.ceil(length/32)+1
+outputhex=""
+asciioutput=""
 
 #need to setup roundkeys here
 PassPhrase=BitVector(textstring=PassPhrase)
@@ -48,8 +48,8 @@ roundkeys=[roundkey1,roundkey2,roundkey3,roundkey4,roundkey5,roundkey6,roundkey7
 
 FILEOUT = io.open(sys.argv[2], 'w', encoding='utf-8')
 
-# set up the segement message loop parameters
-for y in range(1, loopmsg): # loop to encrypt all segments of the message
+# loop to encrypt all segments of the message
+for y in range(1, loopmsg): 
     plaintextseg = message[start:end]
 
     # add round key

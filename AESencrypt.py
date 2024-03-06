@@ -1,16 +1,15 @@
-from AESencryptfunc import * #import AESencryptfunc module to use functions created for this program
-import math #import math module to use function such as ceiling
+from AESencryptfunc import *
+import math 
 
-#check that script is running with the two text files as the two parameters or else quit
-if len(sys.argv) is not 3:#takes in two arguments for the plaintext.txt file name and cipherhex.txt file name
+if len(sys.argv) is not 3:
     sys.exit("Error, script needs two command-line arguments. (Plaintext.txt File and cipherhex.txt File)")
 
-# set passphrase to be a 16 characters, 16 characters * 8 bits = 128 bits strength
+# set pass.length = 16 => 16 * 8bits = 128 bits
 PassPhrase=""
 while(len(PassPhrase)!=16):
     print("Enter in the 16 character passphrase to encrypt your text file %s" %sys.argv[1])
-    PassPhrase=input()#takes in user input of char, eg. "Iwanttolearnkung"
-    if(len(PassPhrase)<16):#check if less than 16 characters, if so add one space character until 16 chars
+    PassPhrase=input()
+    if(len(PassPhrase)<16):
         while(len(PassPhrase)!=16):
             PassPhrase=PassPhrase+"\00"
     if(len(PassPhrase)>16):#check if bigger than 16 characters, if so then truncate it to be only 16 chars from [0:16]
@@ -35,13 +34,13 @@ while(replacementptr<len(message)):
 
 message=BitVector(hexstring=message)
 message=message.get_bitvector_in_ascii()
-#set up some parameters
-start=0#set starting pointer for the part to encrypt of the plaintext
-end=0#set ending pointer for the part to encrypt of the plaintex
-length=len(message)#check the entire size of the message
-loopmsg=0.00#create a decimal value
+
+start=0
+end=0
+length=len(message)
+loopmsg=0.00
 loopmsg=math.ceil(length/16)+1#use formula to figure how long the message is and how many 16 character segmentss must be encrypted
-outputhex=""#setup output message in hex
+outputhex="" 
 
 #need to setup roundkeys here
 PassPhrase=BitVector(textstring=PassPhrase)
@@ -60,16 +59,15 @@ roundkeys=[roundkey1,roundkey2,roundkey3,roundkey4,roundkey5,roundkey6,roundkey7
 #set up FILEOUT to write
 FILEOUT = open(sys.argv[2], 'w')
 
-# set up the segement message loop parameters
-for y in range(1, loopmsg): # loop to encrypt all segments of the message
+# loop to encrypt all segments of the message
+for y in range(1, loopmsg): 
     if(end+16<length): #if the end pointer is less than the size of the message, then set the segment to be 16 characters
         plaintextseg = message[start:end + 16]
-    else: #or else if the end pointer is equal to or greator than the size of the message
+    else: 
         plaintextseg = message[start:length]
         for z in range(0,((end+16)-length),1): #run a while loop to pad the message segement to become 16 characters, if it is 16 already the loop will not run
             plaintextseg = plaintextseg+"\00"
-            #plaintextseg2=BitVector(textstring=plaintextseg)
-            #print(plaintextseg2.get_bitvector_in_hex())
+            
 
     #add round key zero/ find round key one
     bv1 = BitVector(textstring=plaintextseg)

@@ -1,6 +1,5 @@
-from BitVector import * #use BitVector class created by Avinash Kak (kak@purdue.edu) at https://engineering.purdue.edu/kak/dist/BitVector-3.4.4.html
-import math #import math module to use function such as ceiling
-
+from BitVector import * 
+import math 
 #findroundkey takes in the hex pass string of the size 32 and an integer value between 1-10 for the round number. After operations are performed, a hex pass string of the size 32 is generated
 def findroundkey(temp1, case):
     w0=temp1[0:8]
@@ -164,14 +163,7 @@ def invshiftrow(temp2):
     if (len(temp2) == 8):
         temp3 = temp2[6] + temp2[7] + temp2[0] + temp2[1] + temp2[2] + temp2[3] + temp2[4] + temp2[5]#in progress
         return temp3
-    else:#replace
-        #temp3=temp2[0]+temp2[1]+temp2[10]+temp2[11]+temp2[20]+temp2[21]+temp2[30]+temp2[31]+temp2[8]+temp2[9]\
-        #      +temp2[18]+temp2[19]+temp2[28] + temp2[29] + temp2[6] + temp2[7] + temp2[16] + temp2[17] + temp2[26] + temp2[27]\
-        #      + temp2[4] + temp2[5] + temp2[14] + temp2[15] + temp2[24] + temp2[25] + temp2[2] + temp2[3] + temp2[12] + temp2[13]\
-        #      + temp2[22] + temp2[23]
-        # 00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
-        # 00,01,10,11,20,21,30,31,08,09,18,19,28,29,06,07,16,17,26,27,04,05,14,15,24,25,02,03,12,13,22,23
-        # working on this, second line
+    else:
         temp3=temp2[0]+temp2[1]+temp2[26]+temp2[27]+temp2[20]+temp2[21]+temp2[14]+temp2[15]+temp2[8]+temp2[9]\
               +temp2[2]+temp2[3]+temp2[28] + temp2[29] + temp2[22] + temp2[23] + temp2[16] + temp2[17] + temp2[10] + temp2[11]\
               + temp2[4] + temp2[5] + temp2[30] + temp2[31] + temp2[24] + temp2[25] + temp2[18] + temp2[19] + temp2[12] + temp2[13]\
